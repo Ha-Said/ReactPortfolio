@@ -46,7 +46,7 @@ function Hero() {
                 className="logo"
               />
             </a>
-            <a href="https://linkedin.com">
+            <a href="https://www.linkedin.com/in/hajabdallah-said/">
               <img
                 src={linkedin}
                 alt="Logo"
@@ -54,7 +54,7 @@ function Hero() {
                 className="logo"
               />
             </a>
-            <a href="https://instagram.com">
+            <a href="https://www.instagram.com/ha.said1/">
               <img
                 src={instagram}
                 alt="Logo"
