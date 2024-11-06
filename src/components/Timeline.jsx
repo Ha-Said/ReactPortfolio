@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 const TimelineWrapper = styled.ol`
@@ -11,6 +11,9 @@ const TimelineItem = styled.li`
   margin-bottom: 2.5rem;
   margin-left: 1rem;
   position: relative;
+  opacity: ${(props) => (props.isVisible ? 1 : 0)};
+  transform: ${(props) => (props.isVisible ? "none" : "translateY(50px)")};
+  transition: opacity 1s ease-out, transform 0.6s ease-out;
 `;
 
 const Dot = styled.div`
@@ -69,9 +72,35 @@ const LinkButton = styled.a`
 `;
 
 function Timeline() {
+  const [isVisible, setIsVisible] = useState(false);
+  const elementRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of the component is in view
+      }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (elementRef.current) {
+        observer.unobserve(elementRef.current);
+      }
+    };
+  }, []);
+
   return (
     <TimelineWrapper>
-      <TimelineItem>
+      <TimelineItem ref={elementRef} isVisible={isVisible}>
         <Dot />
         <Time>July 2022</Time>
         <Title>Highschool Graduation</Title>
@@ -81,13 +110,13 @@ function Timeline() {
         </Description>
       </TimelineItem>
 
-      <TimelineItem>
+      <TimelineItem isVisible={isVisible}>
         <Dot />
-        <Time>September 2022 </Time>
-        <Title>University as a Computer Science Major </Title>
+        <Time>September 2022</Time>
+        <Title>University as a Computer Science Major</Title>
         <Description>
           Started my Journey as a Computer Science Major at The University of
-          Scince ,Monastir ,Tunisia {"(FSM)"}.
+          Science, Monastir, Tunisia {"(FSM)"}.
         </Description>
       </TimelineItem>
     </TimelineWrapper>

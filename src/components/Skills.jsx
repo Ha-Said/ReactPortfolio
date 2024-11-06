@@ -1,11 +1,43 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const skills = ["React", "Flask", "JavaScript", "MySQL", "Python", "Java"];
 
 const SkillTags = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const elementRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of the component is in view
+      }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (elementRef.current) {
+        observer.unobserve(elementRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <>
-      <h1 style={styles.headerr}> Skills</h1>
+    <div
+      ref={elementRef}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transition: "opacity 1s ease-in-out",
+      }}
+    >
+      <h1 style={styles.headerr}>Skills</h1>
 
       <div style={styles.tagContainer}>
         {skills.map((skill, index) => (
@@ -14,7 +46,7 @@ const SkillTags = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
@@ -37,9 +69,7 @@ const styles = {
     fontSize: "14px",
     fontWeight: "bold",
     display: "inline-block",
-  },
-  h1: {
-    color: "white",
+    margin: "5px",
   },
 };
 

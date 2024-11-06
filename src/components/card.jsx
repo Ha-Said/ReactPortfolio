@@ -26,7 +26,7 @@ const Card = () => {
             </p>
           </div>
           <button>
-            <a href="https://github.com">Check the Code</a>
+            <a href="https://github.com/Ha-Said/PFA">Check the Code</a>
           </button>
         </div>
 
@@ -48,9 +48,6 @@ const Card = () => {
               intake with a simple and user-friendly interface.
             </p>
           </div>
-          <button>
-            <a href="https://github.com">Check the Code</a>
-          </button>
         </div>
 
         <div className="card" style={{ animationDelay: "0.6s" }}>
@@ -70,7 +67,9 @@ const Card = () => {
 
           <p> I made this Portfolio from Scratch using React.</p>
           <button>
-            <a href="https://github.com">Check the Code</a>
+            <a href="https://github.com/Ha-Said/ReactPortfolio">
+              Check the Code
+            </a>
           </button>
         </div>
       </div>
