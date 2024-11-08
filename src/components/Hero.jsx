@@ -89,7 +89,10 @@ const StyledWrapper = styled.div`
     opacity: ${(props) => (props.isVisible ? "1" : "0")};
     transition: opacity 1s ease-in-out;
   }
-
+  .p {
+    font-weight: 600;
+    font-size: 1.5em;
+  }
   .logoContainer {
     width: 90%;
   }

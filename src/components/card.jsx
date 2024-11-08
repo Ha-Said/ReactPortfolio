@@ -26,7 +26,9 @@ const Card = () => {
             </p>
           </div>
           <button>
-            <a href="https://github.com/Ha-Said/PFA">Check the Code</a>
+            <a href="https://github.com/Ha-Said/FullStackProject">
+              Check the Code
+            </a>
           </button>
         </div>
 
@@ -88,7 +90,7 @@ margin-bottom: 4em;
   }
       }
   button {
-    font-size: 18px;
+    font-size: 1em;
     color: #e1e1e1;
     font-family: inherit;
     font-weight: 800;
