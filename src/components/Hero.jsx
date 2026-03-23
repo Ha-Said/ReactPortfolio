@@ -1,109 +1,185 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import github from "../assets/github.svg";
 import linkedin from "../assets/linkedin.svg";
-import instagram from "../assets/instagram.svg";
+import obanga from "../assets/obanga.jpg";
 import styled from "styled-components";
-import obanga from "../assets/Obanga.jpg";
 
 function Hero() {
-  const [isVisible, setIsVisible] = useState(false);
-  const elementRef = useRef(null);
+  const ref = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      {
-        threshold: 0.5,
-      }
-    );
-
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
-    }
-
-    return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current);
-      }
-    };
+    const el = ref.current;
+    if (!el) return;
+    const t = setTimeout(() => el.classList.add("visible"), 100);
+    return () => clearTimeout(t);
   }, []);
 
   return (
-    <StyledWrapper ref={elementRef} isVisible={isVisible}>
-      <div className="heroContainer">
-        <div className="flexContainer">
-          <h1>Haj Abdallah Said</h1>
-          <div className="logoContainer">
-            <a href="https://github.com/Ha-Said">
-              <img
-                src={github}
-                alt="Logo"
-                style={{ cursor: "pointer" }}
-                className="logo"
-              />
-            </a>
-            <a href="https://www.linkedin.com/in/hajabdallah-said/">
-              <img
-                src={linkedin}
-                alt="Logo"
-                style={{ cursor: "pointer" }}
-                className="logo"
-              />
-            </a>
-            <a href="https://www.instagram.com/ha.said1/">
-              <img
-                src={instagram}
-                alt="Logo"
-                style={{ cursor: "pointer" }}
-                className="logo"
-              />
-            </a>
+    <HeroSection>
+      <div className="fade-up" ref={ref}>
+        <div className="hero-inner">
+          <div className="hero-text">
+            <span className="greeting">Hi, I'm</span>
+            <h1>Hadj Abdallah Said</h1>
+            <p className="tagline">
+              Computer Science Engineer · Cloud &amp; DevOps · Full-Stack Developer
+            </p>
+            <p className="bio">
+              Detail-oriented CS graduate with solid cloud engineering skills, eager to leverage
+              technical expertise and internship experience in software development to pursue a
+              challenging role in the tech industry.
+            </p>
+            <div className="hero-actions">
+              <a href="mailto:Said.HadjAbdallah@esprit.tn" className="btn-primary">
+                Get in touch
+              </a>
+              <a href="https://github.com/Ha-Said" target="_blank" rel="noreferrer" className="btn-ghost">
+                GitHub
+              </a>
+            </div>
+            <div className="social-links">
+              <a href="https://github.com/Ha-Said" target="_blank" rel="noreferrer" aria-label="GitHub">
+                <img src={github} alt="GitHub" className="logo" />
+              </a>
+              <a href="https://www.linkedin.com/in/hajabdallah-said/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                <img src={linkedin} alt="LinkedIn" className="logo" />
+              </a>
+            </div>
           </div>
-          <p>
-            A highly motivated final-year Computer Science student with
-            experience in web development and team collaboration, seeking an
-            internship to apply and further develop skills in software
-            engineering and web technologies.
-          </p>
+          <div className="hero-image">
+            <img src={obanga} alt="Hadj Abdallah Said" />
+          </div>
         </div>
-
-        <img src={obanga} alt="Obanga" className="portrait" />
+        <div className="hero-meta">
+          <span>📍 Tunis, Tunisia</span>
+          <span>📞 +216 95 728 177</span>
+          <span>✉️ Said.HadjAbdallah@esprit.tn</span>
+        </div>
       </div>
-    </StyledWrapper>
+    </HeroSection>
   );
 }
 
-const StyledWrapper = styled.div`
-  .heroContainer {
-    color: white;
+const HeroSection = styled.section`
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+
+  .hero-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-align: left;
-    padding: 5em;
-    border-radius: 5em;
-    opacity: ${(props) => (props.isVisible ? "1" : "0")};
-    transition: opacity 1s ease-in-out;
+    gap: 3rem;
   }
-  .p {
+
+  .hero-text {
+    flex: 1;
+  }
+
+  .greeting {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, #fff 40%, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tagline {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--accent2);
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.05em;
+  }
+
+  .bio {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 520px;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    padding: 0.65rem 1.5rem;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 6px;
     font-weight: 600;
-    font-size: 1.5em;
-  }
-  .logoContainer {
-    width: 90%;
+    font-size: 0.9rem;
+    transition: opacity 0.2s, transform 0.2s;
   }
 
-  .flexContainer {
-    max-width: 60%;
+  .btn-primary:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
   }
 
-  .portrait {
-    height: 10em;
-    border-radius: 3em;
+  .btn-ghost {
+    padding: 0.65rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .hero-image img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    box-shadow: 0 0 40px rgba(108, 99, 255, 0.2);
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: var(--mono);
+  }
+
+  @media (max-width: 700px) {
+    .hero-inner { flex-direction: column-reverse; text-align: center; }
+    .hero-actions { justify-content: center; }
+    .social-links { justify-content: center; }
+    .hero-meta { justify-content: center; }
+    .hero-image img { width: 150px; height: 150px; }
   }
 `;
 

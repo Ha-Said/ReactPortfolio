@@ -1,76 +1,123 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+import styled from "styled-components";
 
-const skills = ["React", "Flask", "JavaScript", "MySQL", "Python", "Java"];
+const skillGroups = [
+  {
+    category: "Cloud & DevOps",
+    color: "#ff9f43",
+    skills: ["AWS (In Progress)", "Docker", "Kubernetes", "Terraform", "GitHub Actions", "CI/CD"],
+  },
+  {
+    category: "Programming",
+    color: "#6c63ff",
+    skills: ["JavaScript", "Node.js", "Python", "Bash", "SQL", "C/C++"],
+  },
+  {
+    category: "Web Development",
+    color: "#00d4aa",
+    skills: ["React.js", "HTML5", "CSS3", "Express.js", "MongoDB", "PostgreSQL", "RESTful APIs"],
+  },
+  {
+    category: "Networking & Systems",
+    color: "#fd79a8",
+    skills: ["OSPF", "NAT", "DHCP", "VPN", "VLSM", "GNS3", "Cisco Packet Tracer", "Linux"],
+  },
+  {
+    category: "Tools & Version Control",
+    color: "#74b9ff",
+    skills: ["Git", "GitHub", "VS Code", "Postman"],
+  },
+  {
+    category: "Languages",
+    color: "#a29bfe",
+    skills: ["Arabic (Native)", "English (C1-C2)", "French (B2)"],
+  },
+];
 
-const SkillTags = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const elementRef = useRef(null);
+function Skills() {
+  const ref = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      {
-        threshold: 0.5, // Trigger when 50% of the component is in view
-      }
+      ([entry]) => { if (entry.isIntersecting) ref.current?.classList.add("visible"); },
+      { threshold: 0.1 }
     );
-
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
-    }
-
-    return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current);
-      }
-    };
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div
-      ref={elementRef}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transition: "opacity 1s ease-in-out",
-      }}
-    >
-      <h1 style={styles.headerr}>Skills</h1>
-
-      <div style={styles.tagContainer}>
-        {skills.map((skill, index) => (
-          <div key={index} style={styles.tag}>
-            {skill}
-          </div>
-        ))}
+    <SkillsSection id="skills">
+      <div className="fade-up" ref={ref}>
+        <p className="section-label">What I work with</p>
+        <h2 className="section-title">Skills</h2>
+        <SkillsGrid>
+          {skillGroups.map((group) => (
+            <SkillCard key={group.category} color={group.color}>
+              <h3>{group.category}</h3>
+              <div className="tags">
+                {group.skills.map((s) => (
+                  <span key={s} className="tag">{s}</span>
+                ))}
+              </div>
+            </SkillCard>
+          ))}
+        </SkillsGrid>
       </div>
-    </div>
+    </SkillsSection>
   );
-};
+}
 
-const styles = {
-  headerr: {
-    color: "white",
-  },
-  tagContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-  },
-  tag: {
-    backgroundColor: "#333",
-    color: "white",
-    padding: "6px 12px",
-    borderRadius: "12px",
-    fontFamily: "Arial, sans-serif",
-    fontSize: "14px",
-    fontWeight: "bold",
-    display: "inline-block",
-    margin: "5px",
-  },
-};
+const SkillsSection = styled.section``;
 
-export default SkillTags;
+const SkillsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+`;
+
+const SkillCard = styled.div`
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: border-color 0.2s, transform 0.2s;
+
+  &:hover {
+    border-color: ${(p) => p.color}55;
+    transform: translateY(-2px);
+  }
+
+  h3 {
+    font-size: 0.8rem;
+    font-family: var(--mono);
+    color: ${(p) => p.color};
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  &:hover .tag {
+    color: var(--text);
+    border-color: ${(p) => p.color}44;
+  }
+`;
+
+export default Skills;
