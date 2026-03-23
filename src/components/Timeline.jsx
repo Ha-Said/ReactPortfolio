@@ -24,42 +24,21 @@ const education = [
 
 const experience = [
   {
-    period: "June 2025 – Present",
+    period: "Jan 2025 – Jun 2025",
     title: "Software Development Intern",
     org: "BeeCoders",
     details: "Assisted in developing cloud-based applications. Collaborated with teams to enhance software functionality.",
     color: "#6c63ff",
   },
-  {
-    period: "Aug 2024 – Jun 2025",
-    title: "IT Support Intern",
-    org: "Tech Solutions",
-    details: "Provided technical support to clients via phone and email. Managed system updates and software installations efficiently.",
-    color: "#ff9f43",
-  },
-  {
-    period: "May 2023 – Jul 2023",
-    title: "Intern",
-    org: "Code Academy",
-    details: "Developed a web application as part of a team project. Conducted user testing to improve application usability.",
-    color: "#00d4aa",
-  },
 ];
 
 const certifications = [
   {
-    date: "March 2025",
-    title: "AWS Certified Solutions Architect – Associate",
-    org: "Amazon Web Services",
-    details: "Validated knowledge of cloud architecture and deployment.",
-    color: "#ff9f43",
-  },
-  {
-    date: "January 2025",
-    title: "Google Cloud Fundamentals",
-    org: "Google Cloud",
-    details: "Gained foundational knowledge of Google Cloud services.",
-    color: "#74b9ff",
+    date: "2024",
+    title: "Full-Stack MERN Certificate",
+    org: "9antra – The Bridge",
+    details: "Completed intensive full-stack training covering MongoDB, Express.js, React, and Node.js with hands-on project work.",
+    color: "#00d4aa",
   },
 ];
 
