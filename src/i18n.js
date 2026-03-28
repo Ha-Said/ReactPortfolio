@@ -48,7 +48,7 @@ export const translations = {
         },
         beecoders: {
           title: "Software Development Intern",
-          details: "Created a web application to manage coworking spaces using the MERN stack (MongoDB, Express, React, Node.js).",
+          details: "Developed a coworking space management web application using the MERN stack (MongoDB, Express, React, Node.js). Collaborated with the team to design and implement features for booking, user management, and real-time availability.",
         },
         cert9antra: {
           title: "Full-Stack MERN Certificate",
@@ -120,7 +120,7 @@ export const translations = {
         },
         beecoders: {
           title: "Stagiaire Développeur",
-          details: "Création d'une application web de gestion d'espaces de coworking avec la stack MERN (MongoDB, Express, React, Node.js).",
+          details: "Développement d'une application web de gestion d'espaces de coworking avec la stack MERN (MongoDB, Express, React, Node.js). Collaboration avec l'équipe pour concevoir et implémenter les fonctionnalités de réservation, gestion des utilisateurs et disponibilité en temps réel.",
         },
         cert9antra: {
           title: "Certificat Full-Stack MERN",
