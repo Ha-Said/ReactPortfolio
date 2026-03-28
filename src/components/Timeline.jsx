@@ -1,48 +1,9 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+import { useLang } from "../LangContext";
 
-const education = [
-  {
-    period: "Sep 2025 – Jun 2028 (Expected)",
-    title: "Engineering Degree in Computer Science",
-    subtitle: "Cloud Engineering Track",
-    org: "ESPRIT – École Supérieure Privée d'Ingénierie et de Technologies",
-    location: "Tunis, Tunisia",
-    details: "Currently completing orientation year with focus on cloud computing specialization. Relevant coursework: Network Infrastructure, System Administration, DevOps Fundamentals.",
-    color: "#6c63ff",
-  },
-  {
-    period: "Graduated 2025",
-    title: "Bachelor's Degree in Computer Science",
-    subtitle: "",
-    org: "Faculté des Sciences de Monastir (FSM)",
-    location: "Monastir, Tunisia",
-    details: "Comprehensive curriculum in software development, algorithms, and computer systems. Graduation project: Coworking Space Management Platform using MERN stack.",
-    color: "#00d4aa",
-  },
-];
-
-const experience = [
-  {
-    period: "Jan 2025 – Jun 2025",
-    title: "Software Development Intern",
-    org: "BeeCoders",
-    details: "Assisted in developing cloud-based applications. Collaborated with teams to enhance software functionality.",
-    color: "#6c63ff",
-  },
-];
-
-const certifications = [
-  {
-    date: "2024",
-    title: "Full-Stack MERN Certificate",
-    org: "9antra – The Bridge",
-    details: "Completed intensive full-stack training covering MongoDB, Express.js, React, and Node.js with hands-on project work.",
-    color: "#00d4aa",
-  },
-];
-
-function TimelineBlock({ items, type }) {
+function TimelineBlock({ items }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -55,7 +16,7 @@ function TimelineBlock({ items, type }) {
   }, []);
 
   return (
-    <div className="fade-up" ref={ref}>
+    <div className="fade-up visible" ref={ref}>
       <TimelineList>
         {items.map((item, i) => (
           <TimelineItem key={i} color={item.color}>
@@ -74,21 +35,68 @@ function TimelineBlock({ items, type }) {
   );
 }
 
+TimelineBlock.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
 function Timeline() {
+  const { t } = useLang();
+
+  const education = [
+    {
+      period: "Sep 2025 – Jun 2028 (Expected)",
+      title: t.timeline.items.esprit.title,
+      subtitle: t.timeline.items.esprit.subtitle,
+      org: "ESPRIT – École Supérieure Privée d'Ingénierie et de Technologies",
+      location: "Tunis, Tunisia",
+      details: t.timeline.items.esprit.details,
+      color: "#6c63ff",
+    },
+    {
+      period: "Graduated 2025",
+      title: t.timeline.items.fsm.title,
+      subtitle: "",
+      org: "Faculté des Sciences de Monastir (FSM)",
+      location: "Monastir, Tunisia",
+      details: t.timeline.items.fsm.details,
+      color: "#00d4aa",
+    },
+  ];
+
+  const experience = [
+    {
+      period: "Jan 2025 – Jun 2025",
+      title: t.timeline.items.beecoders.title,
+      org: "BeeCoders",
+      details: t.timeline.items.beecoders.details,
+      color: "#6c63ff",
+    },
+  ];
+
+  const certifications = [
+    {
+      date: "2024",
+      title: t.timeline.items.cert9antra.title,
+      org: "9antra – The Bridge",
+      details: t.timeline.items.cert9antra.details,
+      color: "#00d4aa",
+    },
+  ];
+
   return (
     <section id="experience">
-      <p className="section-label">Background</p>
-      <h2 className="section-title">Experience &amp; Education</h2>
+      <p className="section-label">{t.timeline.label}</p>
+      <h2 className="section-title">{t.timeline.title}</h2>
 
       <TwoCol>
         <div>
-          <ColLabel>Work Experience</ColLabel>
+          <ColLabel>{t.timeline.workExp}</ColLabel>
           <TimelineBlock items={experience} />
         </div>
         <div>
-          <ColLabel>Education</ColLabel>
+          <ColLabel>{t.timeline.education}</ColLabel>
           <TimelineBlock items={education} />
-          <ColLabel style={{ marginTop: "2.5rem" }}>Certifications</ColLabel>
+          <ColLabel style={{ marginTop: "2.5rem" }}>{t.timeline.certifications}</ColLabel>
           <TimelineBlock items={certifications} />
         </div>
       </TwoCol>
@@ -173,3 +181,4 @@ const TimelineItem = styled.li`
 `;
 
 export default Timeline;
+

@@ -7,7 +7,7 @@ const skillGroups = [
     category: "Cloud & DevOps",
     color: "#f59e0b",
     icon: "☁️",
-    skills: ["AWS (In Progress)", "Docker", "Kubernetes", "Terraform", "GitHub Actions", "CI/CD"],
+    skills: ["AWS Cloud Practitioner (In Progress)", "Docker", "Kubernetes", "Terraform", "GitHub Actions", "CI/CD"],
   },
   {
     category: "Programming",

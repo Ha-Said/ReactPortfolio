@@ -9,7 +9,7 @@ const languages = [
 ];
 
 const learning = [
-  { label: "AWS SAA", color: "#f59e0b" },
+  { label: "AWS Cloud Practitioner", color: "#f59e0b" },
   { label: "Kubernetes", color: "#60a5fa" },
   { label: "Terraform", color: "#a78bfa" },
   { label: "Docker", color: "#00e5b8" },
