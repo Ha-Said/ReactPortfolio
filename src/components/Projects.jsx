@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useLang } from "../LangContext";
 
 const projects = [
   {
@@ -61,6 +62,7 @@ const GithubIcon = () => (
 
 function Projects() {
   const ref = useRef(null);
+  const { t } = useLang();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -74,15 +76,15 @@ function Projects() {
   return (
     <section id="projects">
       <div className="fade-up" ref={ref}>
-        <p className="section-label">What I've built</p>
-        <h2 className="section-title">Projects</h2>
+        <p className="section-label">{t.projects.label}</p>
+        <h2 className="section-title">{t.projects.title}</h2>
         <Grid>
           {projects.map((p) => (
             <ProjectCard key={p.title} color={p.color} featured={p.featured}>
               <div className="card-top">
                 <div className="card-top-left">
                   <span className="dot" />
-                  {p.featured && <span className="featured-badge">Featured</span>}
+                  {p.featured && <span className="featured-badge">{t.projects.featured}</span>}
                 </div>
                 {p.github && (
                   <a href={p.github} target="_blank" rel="noreferrer" className="gh-link" aria-label="GitHub">

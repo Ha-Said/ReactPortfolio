@@ -1,8 +1,10 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useLang } from "../LangContext";
 
 function Contact() {
   const ref = useRef(null);
+  const { t } = useLang();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -16,13 +18,10 @@ function Contact() {
   return (
     <ContactSection id="contact">
       <div className="fade-up" ref={ref}>
-        <p className="section-label">Let's connect</p>
-        <h2 className="section-title">Get in Touch</h2>
+        <p className="section-label">{t.contact.label}</p>
+        <h2 className="section-title">{t.contact.title}</h2>
         <ContactCard>
-          <p className="intro">
-            I'm currently open to new opportunities. Whether you have a question,
-            a project idea, or just want to say hi — my inbox is always open.
-          </p>
+          <p className="intro">{t.contact.body}</p>
           <div className="links">
             <a href="mailto:Said.HadjAbdallah@esprit.tn" className="contact-item">
               <span className="icon-wrap">
@@ -50,7 +49,7 @@ function Contact() {
             </a>
           </div>
           <a href="mailto:Said.HadjAbdallah@esprit.tn" className="cta-btn">
-            Say Hello →
+            {t.contact.sayHello}
           </a>
         </ContactCard>
       </div>

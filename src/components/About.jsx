@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useLang } from "../LangContext";
 
 const languages = [
   { lang: "Arabic", level: "Native", pct: 100, color: "#7c6fff" },
@@ -16,6 +17,7 @@ const learning = [
 
 function About() {
   const ref = useRef(null);
+  const { t } = useLang();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,28 +31,17 @@ function About() {
   return (
     <AboutSection id="about">
       <div className="fade-up" ref={ref}>
-        <p className="section-label">Who I am</p>
-        <h2 className="section-title">About</h2>
+        <p className="section-label">{t.about.label}</p>
+        <h2 className="section-title">{t.about.title}</h2>
 
         <Grid>
           <AboutCard>
-            <p>
-              I'm a Computer Science graduate from FSM Monastir, currently pursuing an Engineering
-              degree in Cloud Computing at ESPRIT Tunis. I enjoy building things that live on the
-              internet — from full-stack web apps to network infrastructures.
-            </p>
-            <p>
-              My background spans software development, cloud engineering, and networking, which
-              gives me a broad perspective when approaching technical problems. I'm currently
-              deepening my cloud skills and working toward AWS certification.
-            </p>
-            <p>
-              Outside of code, I'm drawn to system design, open-source tooling, and anything that
-              sits at the intersection of infrastructure and software.
-            </p>
+            <p>{t.about.p1}</p>
+            <p>{t.about.p2}</p>
+            <p>{t.about.p3}</p>
 
             <div className="currently-learning">
-              <span className="cl-label">Currently learning</span>
+              <span className="cl-label">{t.about.currentlyLearning}</span>
               <div className="cl-tags">
                 {learning.map((item) => (
                   <LearningBadge key={item.label} color={item.color}>
@@ -82,7 +73,7 @@ function About() {
               <span className="loc-icon">📍</span>
               <div>
                 <p className="loc-city">Tunis, Tunisia</p>
-                <p className="loc-sub">Open to remote &amp; relocation</p>
+                <p className="loc-sub">{t.about.openTo}</p>
               </div>
             </LocationCard>
           </SideCol>

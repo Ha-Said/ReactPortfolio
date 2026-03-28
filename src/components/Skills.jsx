@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useLang } from "../LangContext";
 
 const skillGroups = [
   {
@@ -42,6 +43,7 @@ const skillGroups = [
 
 function Skills() {
   const ref = useRef(null);
+  const { t } = useLang();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -55,8 +57,8 @@ function Skills() {
   return (
     <SkillsSection id="skills">
       <div className="fade-up" ref={ref}>
-        <p className="section-label">What I work with</p>
-        <h2 className="section-title">Skills</h2>
+        <p className="section-label">{t.skills.label}</p>
+        <h2 className="section-title">{t.skills.title}</h2>
         <SkillsGrid>
           {skillGroups.map((group) => (
             <SkillCard key={group.category} color={group.color}>

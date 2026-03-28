@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -6,10 +6,12 @@ import Skills from "./components/Skills";
 import Timeline from "./components/Timeline";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
+import { useLang } from "./LangContext";
 
-const NAV_SECTIONS = ["about", "skills", "experience", "projects", "contact"];
+const SECTION_IDS = ["about", "skills", "experience", "projects", "contact"];
 
 function App() {
+  const { lang, t, toggle: toggleLang } = useLang();
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
   const [scrollPct, setScrollPct] = useState(0);
   const [activeSection, setActiveSection] = useState("");
@@ -19,7 +21,6 @@ function App() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  // Scroll progress
   useEffect(() => {
     const onScroll = () => {
       const el = document.documentElement;
@@ -30,10 +31,9 @@ function App() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Active nav section
   useEffect(() => {
     const observers = [];
-    NAV_SECTIONS.forEach((id) => {
+    SECTION_IDS.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
       const obs = new IntersectionObserver(
@@ -46,27 +46,37 @@ function App() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+
+  const navLabels = {
+    about: t.nav.about,
+    skills: t.nav.skills,
+    experience: t.nav.experience,
+    projects: t.nav.projects,
+    contact: t.nav.contact,
+  };
 
   return (
     <>
-      {/* Scroll progress bar */}
       <div className="scroll-progress" style={{ width: `${scrollPct}%` }} aria-hidden="true" />
 
       <nav>
         <div className="nav-inner">
           <span className="nav-name">ha-said.dev</span>
           <ul>
-            {NAV_SECTIONS.map((id) => (
+            {SECTION_IDS.map((id) => (
               <li key={id}>
                 <a href={`#${id}`} className={activeSection === id ? "active" : ""}>
-                  {id.charAt(0).toUpperCase() + id.slice(1)}
+                  {navLabels[id]}
                 </a>
               </li>
             ))}
           </ul>
           <div className="nav-actions">
-            <button className="theme-toggle" onClick={toggle} aria-label="Toggle theme">
+            <button className="lang-toggle" onClick={toggleLang} aria-label="Toggle language">
+              {lang === "en" ? "FR" : "EN"}
+            </button>
+            <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
               {theme === "dark" ? "☀️" : "🌙"}
             </button>
           </div>
@@ -83,7 +93,7 @@ function App() {
       </main>
 
       <footer>
-        <span>Built with React &amp; Vite · Hadj Abdallah Said © 2025</span>
+        <span>{t.footer}</span>
       </footer>
     </>
   );

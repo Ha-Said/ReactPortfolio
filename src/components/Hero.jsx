@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import obanga from "../assets/obanga.jpg";
 import styled from "styled-components";
+import { useLang } from "../LangContext";
 
 const GithubIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24" aria-hidden="true">
@@ -16,6 +17,7 @@ const LinkedinIcon = () => (
 
 function Hero() {
   const ref = useRef(null);
+  const { t } = useLang();
 
   useEffect(() => {
     const el = ref.current;
@@ -33,25 +35,22 @@ function Hero() {
       <div className="fade-up" ref={ref}>
         <div className="hero-inner">
           <div className="hero-text">
-            <span className="greeting">// hello world, I'm</span>
+            <span className="greeting">{t.hero.greeting}</span>
             <h1>Hadj Abdallah<br />Said</h1>
             <p className="tagline">
-              <span>CS Engineer</span>
+              <span>{t.hero.tagline[0]}</span>
               <span className="sep">·</span>
-              <span>Cloud &amp; DevOps</span>
+              <span>{t.hero.tagline[1]}</span>
               <span className="sep">·</span>
-              <span>Full-Stack Dev</span>
+              <span>{t.hero.tagline[2]}</span>
             </p>
-            <p className="bio">
-              Detail-oriented CS graduate with solid cloud engineering skills, eager to leverage
-              technical expertise and internship experience to pursue a challenging role in the tech industry.
-            </p>
+            <p className="bio">{t.hero.bio}</p>
             <div className="hero-actions">
               <a href="mailto:Said.HadjAbdallah@esprit.tn" className="btn-primary">
-                Get in touch
+                {t.hero.getInTouch}
               </a>
               <a href="https://github.com/Ha-Said" target="_blank" rel="noreferrer" className="btn-ghost">
-                View GitHub
+                {t.hero.viewGithub}
               </a>
             </div>
             <div className="social-links">
